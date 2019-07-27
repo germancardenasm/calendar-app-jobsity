@@ -1,0 +1,8 @@
+.day {
+   height: 100px;
+   font-family: 'Merriweather', sans-serif;
+   font-size: 15px;
+   white-space: pre;
+   width: 14.2857%;
+   border: 1px solid black;
+}

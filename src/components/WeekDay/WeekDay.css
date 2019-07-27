@@ -1,0 +1,10 @@
+.weekDayName {
+   font-size: 15px;
+   width: 14.2857%;
+   border-left: 1px solid var(--thirdColor);
+   border-bottom: 1px solid var(--thirdColor);
+   color: var(--thirdColor);
+   text-align: center;
+   padding: 0.5em;
+   border: 1px solid black;
+}
