@@ -1,5 +1,6 @@
 .day {
    height: 100px;
+   text-align: left;
    font-family: 'Merriweather', sans-serif;
    font-size: 15px;
    white-space: pre;
