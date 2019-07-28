@@ -1,47 +1,26 @@
 import React from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import "./RemainderForm.css";
 
 const RemainderForm = props => {
   return (
-    <div>
-      <Modal
-        show={true}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Remainder
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="Reminder">
-              <Form.Control type="text" placeholder="Enter Reminder" />
-            </Form.Group>
-
-            <Form.Group controlId="time">
-              <Form.Label>Start</Form.Label>
-              <Form.Control type="datetime-local" placeholder="Time" />
-            </Form.Group>
-
-            <Form.Group controlId="color">
-              <Form.Label>Select Reminder's Color</Form.Label>
-              <Form.Control type="color" value="#FFFFFF" />
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button>Close</Button>
-        </Modal.Footer>
-      </Modal>
+    <div className="remainderFormContainer">
+      <form className="form">
+        <header className="modalHeader">
+          <div>
+            <h4>Remainder</h4>
+          </div>
+          <button className="close">X</button>
+        </header>
+        <p>Weather: rain</p>
+        <input type="text" className="remainderText" placeholder="Remainder" />
+        <input type="date" className="remainderText" />
+        <input type="time" className="remainderText" />
+        <input type="text" className="remainderText" placeholder="City" />
+        <input type="text" className="remainderText" placeholder="Country" />
+        <label>Color: </label>
+        <input className="color" type="color" id="color-input" />
+        <button>Save</button>
+      </form>
     </div>
   );
 };

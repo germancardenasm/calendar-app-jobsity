@@ -20,12 +20,6 @@ const DatesContainer = props => {
     if (firstDay > 0) createEmptyDays(firstDay, props.month);
     for (let i = 1; i <= lastDay; i++)
       datesElements.push(<Day date={i} key={i} />);
-
-    /*     if (thereIsBlankSpace(firstDayOfTheMonth)) {
-      let spacesToFullFill =
-        7 - ((months[selectedDay.getMonth()].days + firstDayOfTheMonth) % 7);
-      createEmptyDays(spacesToFullFill);
-    }  */
   };
 
   const firstDay = getFirstDayOfTheMonth(props.month);

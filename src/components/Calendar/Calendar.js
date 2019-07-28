@@ -8,7 +8,8 @@ class Calendar extends Component {
   state = {
     currentDay: new Date().getDate(),
     month: new Date().getMonth(),
-    showModal: true
+    color: "#FFFFFF",
+    showModal: false
   };
 
   render() {
@@ -21,7 +22,7 @@ class Calendar extends Component {
           <Weekcontainer />
           <DatesContainer month={this.state.month} />
         </div>
-        {/* <RemainderForm show={this.state.showModal} /> */}
+        <RemainderForm show={this.state.showModal} color={this.state.color} />
       </>
     );
   }
