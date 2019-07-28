@@ -7,9 +7,44 @@ import { connect } from "react-redux";
 import "./RemainderForm.css";
 
 class RemainderForm extends Component {
+  state = {
+    title: "",
+    date: "2019-07-01",
+    time: "08:00",
+    color: "#FFFFFF",
+    city: "Medellín",
+    country: "Colombia",
+    validate: false
+  };
+
   handleSubmit = event => {
+    const form = event.currentTarget;
     event.preventDefault();
-    this.props.onSaveRemainder();
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      this.setState({ validate: true });
+      this.props.onSaveRemainder({
+        title: this.state.title,
+        date: this.state.date,
+        time: this.state.time,
+        color: this.state.color,
+        city: this.state.City,
+        country: this.state.City
+      });
+    }
+  };
+
+  //Limit length of reminder titel to 30 charaters
+  handleTitleChange = event => {
+    if (event.target.value.length < 30)
+      this.setState({ title: event.target.value });
+  };
+  handleDateChange = event => {
+    this.setState({ date: event.target.value });
+  };
+  handleTimeChange = event => {
+    this.setState({ time: event.target.value });
   };
 
   render() {
@@ -30,34 +65,48 @@ class RemainderForm extends Component {
             <Form.Row>
               <Form.Group as={Col} controlId="formTitle">
                 <Form.Label>Remind</Form.Label>
-                <Form.Control type="text" placeholder="Enter Reminder" />
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="Enter Reminder"
+                  onChange={this.handleTitleChange}
+                  value={this.state.title}
+                />
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} controlId="formDate">
                 <Form.Label>Date</Form.Label>
-                <Form.Control type="date" />
+                <Form.Control
+                  required
+                  type="date"
+                  defaultValue={this.state.date}
+                  onChange={this.handleDateChange}
+                />
               </Form.Group>
               <Form.Group as={Col} controlId="formDate">
                 <Form.Label>Time</Form.Label>
-                <Form.Control type="time" />
+                <Form.Control
+                  required
+                  type="time"
+                  defaultValue={this.state.time}
+                  onChange={this.handleTimeChange}
+                />
               </Form.Group>
             </Form.Row>
             <Form.Row>
               <Form.Group as={Col} controlId="formCity">
                 <Form.Label>City</Form.Label>
-                <Form.Control as="select">
-                  <option>Choose...</option>
+                <Form.Control required as="select">
                   <option>Medellín</option>
-                  <option>Bogota</option>
+                  <option>Bogotá</option>
                   <option>Cartagena</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group as={Col} controlId="formCountry">
                 <Form.Label>Country</Form.Label>
-                <Form.Control as="select">
-                  <option>Choose...</option>
-                  <option>Medellín</option>n>
+                <Form.Control required as="select">
+                  <option>Colombia</option>
                 </Form.Control>
               </Form.Group>
             </Form.Row>
@@ -83,14 +132,18 @@ class RemainderForm extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveRemainder: remainder =>
+    onSaveRemainder: remainderInfo =>
       dispatch({
         type: "SAVE_REMAINDER",
         remainder: [
-          Date.parse(new Date(2019, 6, 2, 15, 20)),
+          Date.parse(new Date(remainderInfo.date + "T" + remainderInfo.time)),
           {
-            title: "created remainder ",
-            city: "Medellin"
+            title: remainderInfo.title,
+            date: remainderInfo.date,
+            time: remainderInfo.time,
+            color: remainderInfo.color,
+            city: remainderInfo.City,
+            country: remainderInfo.country
           }
         ]
       })
