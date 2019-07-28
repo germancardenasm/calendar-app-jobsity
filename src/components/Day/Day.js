@@ -25,7 +25,7 @@ const Day = props => {
   );
 
   return (
-    <div className="day">
+    <div className="day" id={props.date}>
       {props.date}
       {remaindersArray}
     </div>

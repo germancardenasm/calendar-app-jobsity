@@ -39,9 +39,10 @@ const DatesContainer = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClickCalendar: () =>
+    onClickCalendar: event =>
       dispatch({
-        type: "SHOW_MODAL"
+        type: "SHOW_MODAL",
+        target: event.target.id
       })
   };
 };

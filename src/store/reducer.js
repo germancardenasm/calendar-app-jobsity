@@ -19,6 +19,7 @@ const comparator = (a, b) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SHOW_MODAL":
+      console.log("Action Target", action.target);
       return { ...state, showModal: true };
 
     case "HIDE_MODAL":

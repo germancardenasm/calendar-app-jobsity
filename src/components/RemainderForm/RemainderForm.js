@@ -80,7 +80,7 @@ class RemainderForm extends Component {
                 <Form.Control
                   required
                   type="date"
-                  defaultValue={this.state.date}
+                  value={this.state.date}
                   onChange={this.handleDateChange}
                 />
               </Form.Group>
@@ -89,7 +89,7 @@ class RemainderForm extends Component {
                 <Form.Control
                   required
                   type="time"
-                  defaultValue={this.state.time}
+                  value={this.state.time}
                   onChange={this.handleTimeChange}
                 />
               </Form.Group>
