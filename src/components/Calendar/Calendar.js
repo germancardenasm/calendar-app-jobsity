@@ -13,7 +13,7 @@ class Calendar extends Component {
       <>
         <div id="calendar" className="calendar">
           <div id="month" className="month">
-            <h2 id="monthName">{monthNames[this.props.month + 1]}</h2>
+            <h2 id="monthName">{monthNames[this.props.month]}</h2>
           </div>
           <Weekcontainer />
           <DatesContainer month={this.props.month} />

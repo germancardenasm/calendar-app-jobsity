@@ -2,34 +2,10 @@ import * as actType from "./actions";
 
 console.log("actType", actType);
 
-const remaindersTest = [
-  [
-    1562097600000,
-    {
-      title: "old Title",
-      city: "Medellin"
-    }
-  ],
-  [
-    1562100000000,
-    {
-      title: "2 old Title",
-      city: "Medellin"
-    }
-  ],
-  [
-    1563220800000,
-    {
-      title: "Remainder Title",
-      city: "Medellin"
-    }
-  ]
-];
-
 const initialState = {
   currentDay: new Date().getDate(),
   month: new Date().getMonth(),
-  remainders: remaindersTest,
+  remainders: [],
   showModal: false
 };
 
