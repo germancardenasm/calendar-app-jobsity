@@ -1,3 +1,7 @@
+import * as actType from "./actions";
+
+console.log("actType", actType);
+
 const remaindersTest = [
   [
     1562097600000,
@@ -54,10 +58,16 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  if (action === "SAVE_REMAINDER") {
-    console.log("SAVE THE REMAINDER");
+  switch (action.type) {
+    case "SHOW_MODAL":
+      return { ...state, showModal: true };
+
+    case "HIDE_MODAL":
+      return { ...state, showModal: false };
+
+    default:
+      return state;
   }
-  return state;
 };
 
 export default reducer;

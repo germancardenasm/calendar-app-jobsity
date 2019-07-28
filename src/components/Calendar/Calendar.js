@@ -4,6 +4,7 @@ import Weekcontainer from "../WeekContainer/WeekContainer";
 import DatesContainer from "../DatesContainer/DatesContainer";
 import RemainderForm from "../RemainderForm/RemainderForm";
 import monthNames from "./monthsNames";
+
 import "./Calendar.css";
 
 class Calendar extends Component {
@@ -17,7 +18,11 @@ class Calendar extends Component {
           <Weekcontainer />
           <DatesContainer month={this.props.month} />
         </div>
-        <RemainderForm show={this.props.showModal} color={this.props.color} />
+        <RemainderForm
+          show={this.props.showModal}
+          onHide={this.props.onCloseModal}
+          color={this.props.color}
+        />
       </>
     );
   }
@@ -31,4 +36,16 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Calendar);
+const mapDispatchToProps = dispatch => {
+  return {
+    onCloseModal: () =>
+      dispatch({
+        type: "HIDE_MODAL"
+      })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Calendar);

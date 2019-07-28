@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import Day from "../Day/Day";
 
 const DatesContainer = props => {
@@ -26,10 +27,26 @@ const DatesContainer = props => {
   createDates(firstDay, props.month);
 
   return (
-    <div id="datesContainer" className="datesContainer">
+    <div
+      id="datesContainer"
+      className="datesContainer"
+      onClick={props.onClickCalendar}
+    >
       {datesElements}
     </div>
   );
 };
 
-export default DatesContainer;
+const mapDispatchToProps = dispatch => {
+  return {
+    onClickCalendar: () =>
+      dispatch({
+        type: "SHOW_MODAL"
+      })
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(DatesContainer);
