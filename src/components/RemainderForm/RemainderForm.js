@@ -7,6 +7,11 @@ import { connect } from "react-redux";
 import "./RemainderForm.css";
 
 const RemainderForm = props => {
+  const handleSubmit = event => {
+    event.preventDefault();
+    props.onSaveRemainder();
+  };
+
   return (
     <Modal
       {...props}
@@ -18,7 +23,7 @@ const RemainderForm = props => {
         <Modal.Title id="contained-modal-title-vcenter">Remainder</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Row>
             <Form.Group as={Col} controlId="formTitle">
               <Form.Label>Remind</Form.Label>
@@ -74,15 +79,16 @@ const RemainderForm = props => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveRemainder: () =>
+    onSaveRemainder: remainder =>
       dispatch({
         type: "SAVE_REMAINDER",
-        remainder: {
-          title: "Remainder Title",
-          date: new Date(2019, 6, 30),
-          time: "10:00",
-          color: "black"
-        }
+        remainder: [
+          Date.parse(new Date(2018, 6, 3, 9, 0)),
+          {
+            title: "created remainder ",
+            city: "Medellin"
+          }
+        ]
       })
   };
 };

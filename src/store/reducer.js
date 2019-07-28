@@ -65,6 +65,22 @@ const reducer = (state = initialState, action) => {
     case "HIDE_MODAL":
       return { ...state, showModal: false };
 
+    case "SAVE_REMAINDER":
+      let newArray = state.remainders.slice();
+      newArray.splice(state.remainders.length, 0, action.remainder);
+      return {
+        ...state,
+        showModal: false,
+        remainders: newArray
+      };
+
+    case "DELETE_REMAINDER":
+      const TIME_STAMP = 0;
+      const newRemainderArray = state.remainder.filter(
+        (remainder, index) =>
+          remainder[TIME_STAMP] !== action.remainder[TIME_STAMP]
+      );
+      return { ...state, remainders: newRemainderArray };
     default:
       return state;
   }
