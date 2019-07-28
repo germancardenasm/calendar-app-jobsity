@@ -4,10 +4,30 @@ import "./Day.css";
 import Remainder from "../Remainder/Remainder";
 
 const Day = props => {
+  let remaindersArray = props.remainders.reduce(
+    (accumulator, currentremainder) => {
+      const TIME_STAMP = 0;
+      const remainderDate = new Date(currentremainder[TIME_STAMP]);
+      if (
+        remainderDate.getMonth() === props.month &&
+        remainderDate.getDate() === props.date
+      ) {
+        accumulator.push(
+          <Remainder
+            title={currentremainder[1].title}
+            key={currentremainder[TIME_STAMP]}
+          />
+        );
+      }
+      return accumulator;
+    },
+    []
+  );
+
   return (
     <div className="day">
       {props.date}
-      <Remainder title="title reminder" />
+      {remaindersArray}
     </div>
   );
 };
