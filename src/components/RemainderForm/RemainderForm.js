@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import "./RemainderForm.css";
 
 const RemainderForm = props => {
@@ -19,10 +20,28 @@ const RemainderForm = props => {
         <input type="text" className="remainderText" placeholder="Country" />
         <label>Color: </label>
         <input className="color" type="color" id="color-input" />
-        <button>Save</button>
+        <button onClick={props.onSaveRemainder}>Save</button>
       </form>
     </div>
   );
 };
 
-export default RemainderForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    onSaveRemainder: () =>
+      dispatch({
+        type: "SAVE_REMAINDER",
+        remainder: {
+          title: "Remainder Title",
+          date: new Date(2019, 6, 30),
+          time: "10:00",
+          color: "black"
+        }
+      })
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(RemainderForm);

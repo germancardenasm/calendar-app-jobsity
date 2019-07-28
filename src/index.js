@@ -5,18 +5,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import reducer from "./store/reducer";
 
-const initialState = {
-  currentDay: new Date().getDate(),
-  month: new Date().getMonth(),
-  showModal: false
-};
-
-const rootReducer = (state = initialState, action) => {
-  return state;
-};
 //Store
-const store = createStore(rootReducer);
+const store = createStore(reducer);
 
 ReactDOM.render(
   <Provider store={store}>
