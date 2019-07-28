@@ -16,6 +16,7 @@ const Day = props => {
           <Remainder
             title={currentremainder[1].title}
             key={currentremainder[TIME_STAMP]}
+            id={currentremainder[TIME_STAMP]}
           />
         );
       }
