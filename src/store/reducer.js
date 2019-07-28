@@ -6,43 +6,19 @@ const remaindersTest = [
   [
     1562097600000,
     {
-      title: "Remainder Title",
+      title: "old Title",
       city: "Medellin"
     }
   ],
   [
-    1562097700000,
+    1562100000000,
     {
-      title: "2 Remainder Title",
+      title: "2 old Title",
       city: "Medellin"
     }
   ],
   [
     1563220800000,
-    {
-      title: "Remainder Title",
-      city: "Medellin"
-    }
-  ],
-
-  [
-    1565449200000,
-    {
-      title: "Remainder Title",
-      city: "Medellin"
-    }
-  ],
-
-  [
-    1565895600000,
-    {
-      title: "Remainder Title",
-      city: "Medellin"
-    }
-  ],
-
-  [
-    1565899200000,
     {
       title: "Remainder Title",
       city: "Medellin"
@@ -57,6 +33,13 @@ const initialState = {
   showModal: false
 };
 
+//Function used to organize reminders chronologically in the sort() method
+const comparator = (a, b) => {
+  if (a[0] < b[0]) return -1;
+  if (a[0] > b[0]) return 1;
+  return 0;
+};
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SHOW_MODAL":
@@ -68,6 +51,7 @@ const reducer = (state = initialState, action) => {
     case "SAVE_REMAINDER":
       let newArray = state.remainders.slice();
       newArray.splice(state.remainders.length, 0, action.remainder);
+      newArray = newArray.sort(comparator);
       return {
         ...state,
         showModal: false,

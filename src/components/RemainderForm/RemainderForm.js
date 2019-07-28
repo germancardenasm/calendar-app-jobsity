@@ -83,7 +83,7 @@ const mapDispatchToProps = dispatch => {
       dispatch({
         type: "SAVE_REMAINDER",
         remainder: [
-          Date.parse(new Date(2018, 6, 3, 9, 0)),
+          Date.parse(new Date(2019, 6, 2, 15, 20)),
           {
             title: "created remainder ",
             city: "Medellin"
