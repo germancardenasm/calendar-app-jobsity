@@ -24,6 +24,8 @@ class RemainderForm extends Component {
       event.stopPropagation();
     } else {
       this.setState({ validate: true });
+
+      //Save the remnainder in the store
       this.props.onSaveRemainder({
         title: this.state.title,
         date: this.state.date,
@@ -32,6 +34,9 @@ class RemainderForm extends Component {
         city: this.state.City,
         country: this.state.City
       });
+
+      //Reset State of the Form
+      this.resetState();
     }
   };
 
@@ -46,6 +51,21 @@ class RemainderForm extends Component {
   handleTimeChange = event => {
     this.setState({ time: event.target.value });
   };
+  handleClose = () => {
+    this.props.onCloseModal();
+    this.resetState();
+  };
+
+  resetState = () =>
+    this.setState({
+      title: "",
+      date: "2019-07-01",
+      time: "08:00",
+      color: "#FFFFFF",
+      city: "Medellín",
+      country: "Colombia",
+      validate: false
+    });
 
   render() {
     return (
@@ -54,6 +74,7 @@ class RemainderForm extends Component {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        onHide={this.handleClose}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -146,7 +167,8 @@ const mapDispatchToProps = dispatch => {
             country: remainderInfo.country
           }
         ]
-      })
+      }),
+    onCloseModal: () => dispatch({ type: "HIDE_MODAL" })
   };
 };
 
