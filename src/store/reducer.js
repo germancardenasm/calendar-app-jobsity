@@ -23,17 +23,15 @@ const reducer = (state = initialState, action) => {
         showModal: true,
         currentRemainder:
           state.remainders.find(remaninder => {
-            return parseInt(action.target.id) === remaninder[0];
-          }) || []
+            return parseInt(action.target.id) === remaninder.id;
+          }) || {}
       };
 
     case "HIDE_MODAL":
       return { ...state, showModal: false };
 
     case "SAVE_REMAINDER":
-      let newArray = state.remainders.slice();
-      newArray.splice(state.remainders.length, 0, action.remainder);
-      newArray = newArray.sort(comparator);
+      let newArray = [...state.remainders, action.remainder];
       return {
         ...state,
         showModal: false,

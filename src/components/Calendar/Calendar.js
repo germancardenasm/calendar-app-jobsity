@@ -18,11 +18,15 @@ class Calendar extends Component {
           <Weekcontainer />
           <DatesContainer month={this.props.month} />
         </div>
-        <RemainderForm
-          show={this.props.showModal}
-          onHide={this.props.onCloseModal}
-          color={this.props.color}
-        />
+        {this.props.showModal ? (
+          <RemainderForm
+            show={this.props.showModal}
+            onHide={this.props.onCloseModal}
+            color={this.props.color}
+          />
+        ) : (
+          ""
+        )}
       </>
     );
   }

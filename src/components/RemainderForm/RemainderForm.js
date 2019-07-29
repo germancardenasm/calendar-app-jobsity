@@ -17,6 +17,12 @@ class RemainderForm extends Component {
     validate: false
   };
 
+  componentDidMount() {
+    this.setState({ ...this.props.currentRemainder });
+    console.log(this.props);
+    debugger;
+  }
+
   handleSubmit = event => {
     const form = event.currentTarget;
     event.preventDefault();
@@ -44,6 +50,7 @@ class RemainderForm extends Component {
   handleTitleChange = event => {
     if (event.target.value.length < 30)
       this.setState({ title: event.target.value });
+    //this.setState({ title: event.target.value });
   };
 
   //Handlers for controlled inputs
@@ -158,7 +165,17 @@ class RemainderForm extends Component {
 const mapStateToProps = state => ({
   currentDay: state.currentDay,
   month: state.month,
-  currentRemainder: state.currentRemainder[1]
+  currentRemainder: state.currentRemainder
+    ? { ...state.currentRemainder }
+    : {
+        title: "",
+        date: "2019-07-01",
+        time: "08:00",
+        color: "#FFFFFF",
+        city: "Medellín",
+        country: "Colombia",
+        validate: false
+      }
 });
 
 const mapDispatchToProps = dispatch => {
@@ -166,17 +183,17 @@ const mapDispatchToProps = dispatch => {
     onSaveRemainder: remainderInfo =>
       dispatch({
         type: "SAVE_REMAINDER",
-        remainder: [
-          Date.parse(new Date(remainderInfo.date + "T" + remainderInfo.time)),
-          {
-            title: remainderInfo.title,
-            date: remainderInfo.date,
-            time: remainderInfo.time,
-            color: remainderInfo.color,
-            city: remainderInfo.City,
-            country: remainderInfo.country
-          }
-        ]
+        remainder: {
+          id: Date.parse(
+            new Date(remainderInfo.date + "T" + remainderInfo.time)
+          ),
+          title: remainderInfo.title,
+          date: remainderInfo.date,
+          time: remainderInfo.time,
+          color: remainderInfo.color,
+          city: remainderInfo.City,
+          country: remainderInfo.country
+        }
       }),
     onCloseModal: () => dispatch({ type: "HIDE_MODAL" })
   };

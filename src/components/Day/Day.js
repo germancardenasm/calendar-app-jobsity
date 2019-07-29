@@ -7,16 +7,16 @@ const Day = props => {
   let remaindersArray = props.remainders.reduce(
     (accumulator, currentremainder) => {
       const TIME_STAMP = 0;
-      const remainderDate = new Date(currentremainder[TIME_STAMP]);
+      const remainderDate = new Date(currentremainder.id);
       if (
         remainderDate.getMonth() === props.month &&
         remainderDate.getDate() === props.date
       ) {
         accumulator.push(
           <Remainder
-            title={currentremainder[1].title}
-            key={currentremainder[TIME_STAMP]}
-            id={currentremainder[TIME_STAMP]}
+            title={currentremainder.title}
+            key={currentremainder.id}
+            id={currentremainder.id}
           />
         );
       }
