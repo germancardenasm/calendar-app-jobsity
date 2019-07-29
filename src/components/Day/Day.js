@@ -6,12 +6,12 @@ import Remainder from "../Remainder/Remainder";
 const Day = props => {
   let remaindersArray = props.remainders.reduce(
     (accumulator, currentremainder) => {
-      const TIME_STAMP = 0;
-      const remainderDate = new Date(currentremainder.id);
+      const remainderDate = new Date(currentremainder.date + "T00:00:00-05:00");
       if (
         remainderDate.getMonth() === props.month &&
         remainderDate.getDate() === props.date
       ) {
+        debugger;
         accumulator.push(
           <Remainder
             title={currentremainder.title}

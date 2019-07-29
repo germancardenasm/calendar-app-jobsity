@@ -8,13 +8,6 @@ const initialState = {
   showModal: false
 };
 
-//Function used to organize reminders chronologically in the sort() method
-const comparator = (a, b) => {
-  if (a[0] < b[0]) return -1;
-  if (a[0] > b[0]) return 1;
-  return 0;
-};
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "SHOW_REMAINDER":
@@ -36,6 +29,24 @@ const reducer = (state = initialState, action) => {
         ...state,
         showModal: false,
         remainders: newArray
+      };
+
+    case "EDIT_REMAINDER":
+      const remindersEdited = state.remainders.map((item, index) => {
+        if (item.id !== action.remainder.id) {
+          // This isn't the item we care about - keep it as-is
+          return item;
+        }
+        // Otherwise, this is the one we want - return an updated value
+        return {
+          ...item,
+          ...action.remainder
+        };
+      });
+      return {
+        ...state,
+        showModal: false,
+        remainders: remindersEdited
       };
 
     case "DELETE_REMAINDER":

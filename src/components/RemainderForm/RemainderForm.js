@@ -20,7 +20,6 @@ class RemainderForm extends Component {
   componentDidMount() {
     this.setState({ ...this.props.currentRemainder });
     console.log(this.props);
-    debugger;
   }
 
   handleSubmit = event => {
@@ -30,16 +29,26 @@ class RemainderForm extends Component {
       event.stopPropagation();
     } else {
       this.setState({ validate: true });
-
-      //Save the remnainder in the store
-      this.props.onSaveRemainder({
-        title: this.state.title,
-        date: this.state.date,
-        time: this.state.time,
-        color: this.state.color,
-        city: this.state.City,
-        country: this.state.City
-      });
+      if (this.state.id) {
+        this.props.onSaveRemainder("EDIT_REMAINDER", {
+          id: this.state.id,
+          title: this.state.title,
+          date: this.state.date,
+          time: this.state.time,
+          color: this.state.color,
+          city: this.state.City,
+          country: this.state.City
+        });
+      } else {
+        this.props.onSaveRemainder("SAVE_REMAINDER", {
+          title: this.state.title,
+          date: this.state.date,
+          time: this.state.time,
+          color: this.state.color,
+          city: this.state.City,
+          country: this.state.City
+        });
+      }
 
       //Reset State of the Form
       this.resetState();
@@ -180,21 +189,25 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    onSaveRemainder: remainderInfo =>
-      dispatch({
-        type: "SAVE_REMAINDER",
-        remainder: {
-          id: Date.parse(
+    onSaveRemainder: (action, remainderInfo) => {
+      const actionToSend = {};
+
+      actionToSend.remainder = { ...remainderInfo };
+      switch (action) {
+        default:
+        case "SAVE_REMAINDER":
+          actionToSend.type = "SAVE_REMAINDER";
+          actionToSend.remainder.id = Date.parse(
             new Date(remainderInfo.date + "T" + remainderInfo.time)
-          ),
-          title: remainderInfo.title,
-          date: remainderInfo.date,
-          time: remainderInfo.time,
-          color: remainderInfo.color,
-          city: remainderInfo.City,
-          country: remainderInfo.country
-        }
-      }),
+          );
+          break;
+        case "EDIT_REMAINDER":
+          actionToSend.type = "EDIT_REMAINDER";
+          break;
+      }
+      dispatch(actionToSend);
+    },
+
     onCloseModal: () => dispatch({ type: "HIDE_MODAL" })
   };
 };
