@@ -11,7 +11,6 @@ const Day = props => {
         remainderDate.getMonth() === props.month &&
         remainderDate.getDate() === props.date
       ) {
-        debugger;
         accumulator.push(
           <Remainder
             title={currentremainder.title}

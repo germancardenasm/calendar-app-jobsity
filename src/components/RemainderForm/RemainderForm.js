@@ -69,6 +69,9 @@ class RemainderForm extends Component {
   handleTimeChange = event => {
     this.setState({ time: event.target.value });
   };
+  handleColorChange = event => {
+    this.setState({ color: event.target.value });
+  };
 
   //When  modal closes dispatches a HIDE_MODAL and Reset de UI state
   handleClose = () => {
@@ -155,7 +158,11 @@ class RemainderForm extends Component {
             <Form.Row>
               <Form.Group as={Col} controlId="formColor">
                 <Form.Label>Color</Form.Label>
-                <Form.Control type="Color" />
+                <Form.Control
+                  type="Color"
+                  onChange={this.handleColorChange}
+                  value={this.state.color}
+                />
               </Form.Group>
             </Form.Row>
             <div className="text-right">
