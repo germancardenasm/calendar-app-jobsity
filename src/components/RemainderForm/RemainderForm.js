@@ -17,14 +17,12 @@ class RemainderForm extends Component {
     city: "Medellín",
     country: "Colombia",
     weather: "",
-    weatherIcon: ""
+    weatherIcon: "",
+    dataReserved: false
   };
 
   componentDidMount() {
-    this.setState(
-      { ...this.props.currentRemainder },
-      this.state.id ? () => {} : this.fecthWeather
-    );
+    this.setState({ ...this.props.currentRemainder }, this.fecthWeather);
   }
 
   fecthWeather = () => {
@@ -37,16 +35,15 @@ class RemainderForm extends Component {
         return response.json();
       })
       .then(json => {
-        return this.updateWeather(json);
+        return this.showWeather(json);
       });
   };
 
-  updateWeather = response => {
-    //Openweather free tier not allow to fetch weather of any date
+  showWeather = response => {
+    //Openweather free tier does not allow to fetch weather of any date.
     //Because of that for this challenge the app uses a random number
-    //to get weather from the list return from the following 5 days
+    //to get weather from the list return to show the fucntionality
     const random = Math.floor(Math.random() * 40);
-    console.log("random", random);
     const img = `http://openweathermap.org/img/wn/${
       response.list[random].weather[0].icon
     }@2x.png`;
@@ -57,45 +54,61 @@ class RemainderForm extends Component {
   };
 
   handleSubmit = event => {
-    const form = event.currentTarget;
     event.preventDefault();
-    if (form.checkValidity() === false) {
+
+    if (this.isDateReserved()) {
+      console.log("date reserved");
       event.stopPropagation();
-    } else {
-      if (this.state.id) {
-        this.props.onSaveRemainder("EDIT_REMAINDER", {
-          ...this.state
-        });
-      } else {
-        this.props.onSaveRemainder("SAVE_REMAINDER", {
-          ...this.state
-        });
-      }
-      //Reset State of the Form
-      this.resetState();
+      this.setState({ dataReserved: true });
+      return;
     }
+    if (this.state.id) {
+      this.props.onSaveRemainder("EDIT_REMAINDER", {
+        ...this.state
+      });
+    } else {
+      this.props.onSaveRemainder("SAVE_REMAINDER", {
+        ...this.state
+      });
+    }
+    //Reset State of the Form to erase old content
+    this.resetState();
   };
 
-  //Limit length of reminder titel to 30 charaters
+  isDateReserved = () => {
+    const reserved = this.props.remainders.some(element => {
+      return (
+        element.date === this.state.date &&
+        element.time === this.state.time &&
+        element.id !== this.state.id
+      );
+    });
+    //reserved ? this.props.onDateReserved() : this.props.onDateAvailable();
+    return reserved;
+  };
+  //Limit length of reminder title to 30 charaters
   handleTitleChange = event => {
     if (event.target.value.length < 30)
       this.setState({ title: event.target.value });
   };
   //Handlers for controlled inputs
   handleDateChange = event => {
-    this.setState({ date: event.target.value }, this.fecthWeather);
+    this.setState(
+      { date: event.target.value, dataReserved: false },
+      this.fecthWeather
+    );
   };
   handleTimeChange = event => {
-    this.setState({ time: event.target.value }, this.fecthWeather);
+    this.setState(
+      { time: event.target.value, dataReserved: false },
+      this.fecthWeather
+    );
   };
   handleColorChange = event => {
     this.setState({ color: event.target.value });
   };
   handleCityChange = event => {
     this.setState({ city: event.target.value }, this.fecthWeather);
-  };
-  handleCountryChange = event => {
-    this.setState({ country: event.target.value });
   };
 
   //When  modal closes dispatches a HIDE_MODAL and Reset de UI state
@@ -113,7 +126,8 @@ class RemainderForm extends Component {
       city: "Medellín",
       country: "Colombia",
       weather: "",
-      weatherIcon: ""
+      weatherIcon: "",
+      dataReserved: false
     });
 
   render() {
@@ -160,6 +174,11 @@ class RemainderForm extends Component {
                   value={this.state.date}
                   onChange={this.handleDateChange}
                 />
+                <Form.Text
+                  className={this.state.dataReserved ? "text-danger" : "d-none"}
+                >
+                  Date and time already reserved.
+                </Form.Text>
               </Form.Group>
               <Form.Group as={Col} controlId="formDate">
                 <Form.Label>Time</Form.Label>
@@ -191,7 +210,7 @@ class RemainderForm extends Component {
                   required
                   as="select"
                   value={this.state.country}
-                  onChange={this.handleCountryChange}
+                  onChange={() => {}}
                 >
                   <option>Colombia</option>
                 </Form.Control>
@@ -225,9 +244,9 @@ class RemainderForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentDay: state.currentDay,
   month: state.month,
-  reminders: state.remianders,
+  remainders: state.remainders,
+  dateReserved: state.dateReserved,
   currentRemainder: state.currentRemainder
     ? { ...state.currentRemainder }
     : {

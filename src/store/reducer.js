@@ -1,19 +1,6 @@
 const initialState = {
-  currentDay: new Date().getDate(),
   month: new Date().getMonth(),
-  remainders: [
-    {
-      title: "test",
-      date: "2019-07-01",
-      time: "07:00",
-      color: "#FFFFFF",
-      city: "Medellín",
-      country: "Colombia",
-      id: 1561976000000,
-      weather: "test temp",
-      weatherIcon: "http://openweathermap.org/img/wn/10d@2x.png"
-    }
-  ],
+  remainders: [],
   currentRemainder: [],
   showModal: false
 };

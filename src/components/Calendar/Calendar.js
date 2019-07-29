@@ -34,7 +34,6 @@ class Calendar extends Component {
 
 const mapStateToProps = state => {
   return {
-    currentDay: state.currentDay,
     month: state.month,
     showModal: state.showModal
   };
