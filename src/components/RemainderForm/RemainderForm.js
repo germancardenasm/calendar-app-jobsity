@@ -9,6 +9,7 @@ import "./RemainderForm.css";
 
 class RemainderForm extends Component {
   state = {
+    id: "",
     title: "",
     date: "2019-07-01",
     time: "08:00",
@@ -20,7 +21,10 @@ class RemainderForm extends Component {
   };
 
   componentDidMount() {
-    this.setState({ ...this.props.currentRemainder }, this.fecthWeather);
+    this.setState(
+      { ...this.props.currentRemainder },
+      this.state.id ? () => {} : this.fecthWeather
+    );
   }
 
   fecthWeather = () => {
@@ -38,8 +42,13 @@ class RemainderForm extends Component {
   };
 
   updateWeather = response => {
+    //Openweather free tier not allow to fetch weather of any date
+    //Because of that for this challenge the app uses a random number
+    //to get weather from the list return from the following 5 days
+    const random = Math.floor(Math.random() * 40);
+    console.log("random", random);
     const img = `http://openweathermap.org/img/wn/${
-      response.list[0].weather[0].icon
+      response.list[random].weather[0].icon
     }@2x.png`;
     this.setState({
       weather: response.list[0].weather[0].description,
@@ -55,22 +64,11 @@ class RemainderForm extends Component {
     } else {
       if (this.state.id) {
         this.props.onSaveRemainder("EDIT_REMAINDER", {
-          id: this.state.id,
-          title: this.state.title,
-          date: this.state.date,
-          time: this.state.time,
-          color: this.state.color,
-          city: this.state.city,
-          country: this.state.country
+          ...this.state
         });
       } else {
         this.props.onSaveRemainder("SAVE_REMAINDER", {
-          title: this.state.title,
-          date: this.state.date,
-          time: this.state.time,
-          color: this.state.color,
-          city: this.state.city,
-          country: this.state.country
+          ...this.state
         });
       }
       //Reset State of the Form
@@ -229,15 +227,19 @@ class RemainderForm extends Component {
 const mapStateToProps = state => ({
   currentDay: state.currentDay,
   month: state.month,
+  reminders: state.remianders,
   currentRemainder: state.currentRemainder
     ? { ...state.currentRemainder }
     : {
+        id: "",
         title: "",
         date: "2019-07-01",
         time: "08:00",
         color: "#FFFFFF",
         city: "Medellín",
-        country: "Colombia"
+        country: "Colombia",
+        weather: "",
+        weatherIcon: ""
       }
 });
 

@@ -5,13 +5,13 @@ const initialState = {
     {
       title: "test",
       date: "2019-07-01",
-      time: "08:00",
+      time: "07:00",
       color: "#FFFFFF",
       city: "Medellín",
       country: "Colombia",
-      id: 1561986000000,
-      weather: "",
-      weatherIcon: ""
+      id: 1561976000000,
+      weather: "test temp",
+      weatherIcon: "http://openweathermap.org/img/wn/10d@2x.png"
     }
   ],
   currentRemainder: [],
