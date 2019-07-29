@@ -6,20 +6,10 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import { connect } from "react-redux";
 import "./RemainderForm.css";
+import { reminderAction, getDefaultReminder } from "../../store/actions";
 
 class RemainderForm extends Component {
-  state = {
-    id: "",
-    title: "",
-    date: "2019-07-01",
-    time: "08:00",
-    color: "#FFFFFF",
-    city: "Medellín",
-    country: "Colombia",
-    weather: "",
-    weatherIcon: "",
-    dataReserved: false
-  };
+  state = getDefaultReminder();
 
   componentDidMount() {
     this.setState({ ...this.props.currentRemainder }, this.fecthWeather);
@@ -117,18 +107,7 @@ class RemainderForm extends Component {
     this.resetState();
   };
 
-  resetState = () =>
-    this.setState({
-      title: "",
-      date: "2019-07-01",
-      time: "08:00",
-      color: "#FFFFFF",
-      city: "Medellín",
-      country: "Colombia",
-      weather: "",
-      weatherIcon: "",
-      dataReserved: false
-    });
+  resetState = () => this.setState(getDefaultReminder());
 
   render() {
     return (
@@ -249,38 +228,13 @@ const mapStateToProps = state => ({
   dateReserved: state.dateReserved,
   currentRemainder: state.currentRemainder
     ? { ...state.currentRemainder }
-    : {
-        id: "",
-        title: "",
-        date: "2019-07-01",
-        time: "08:00",
-        color: "#FFFFFF",
-        city: "Medellín",
-        country: "Colombia",
-        weather: "",
-        weatherIcon: ""
-      }
+    : getDefaultReminder()
 });
 
 const mapDispatchToProps = dispatch => {
   return {
     onSaveRemainder: (action, remainderInfo) => {
-      const actionToSend = {};
-
-      actionToSend.remainder = { ...remainderInfo };
-      switch (action) {
-        default:
-        case "SAVE_REMAINDER":
-          actionToSend.type = "SAVE_REMAINDER";
-          actionToSend.remainder.id = Date.parse(
-            new Date(remainderInfo.date + "T" + remainderInfo.time)
-          );
-          break;
-
-        case "EDIT_REMAINDER":
-          actionToSend.type = "EDIT_REMAINDER";
-          break;
-      }
+      const actionToSend = reminderAction(action, remainderInfo);
       dispatch(actionToSend);
     },
 

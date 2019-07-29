@@ -10,21 +10,33 @@ const DatesContainer = props => {
     return new Date(year, month, 1).getDay();
   };
 
-  const createEmptyDays = (qtyOfSpaces, month) => {
+  const createEmptyDays = (qtyOfSpaces, prefix) => {
     for (let i = 0; i < qtyOfSpaces; i++) {
-      datesElements.push(<Day date={""} key={"prev" + i} />);
+      datesElements.push(<Day date={""} key={prefix + i} />);
     }
   };
 
   const createDates = (firstDay, month) => {
     const lastDay = new Date(YEAR, month + 1, 0).getDate();
-    if (firstDay > 0) createEmptyDays(firstDay, props.month);
+    if (firstDay > 0) createEmptyDays(firstDay, "prev");
     for (let i = 1; i <= lastDay; i++)
       datesElements.push(<Day date={i} month={month} key={i} />);
   };
 
+  const thereIsBlankSpace = firstDay => {
+    let thereIs =
+      (new Date(YEAR, props.month + 1, 0).getDate() % 7) + firstDay > 1;
+    return thereIs;
+  };
+
   const firstDay = getFirstDayOfTheMonth(props.month);
   createDates(firstDay, props.month);
+
+  if (thereIsBlankSpace(firstDay)) {
+    let spacesToFill =
+      7 - (((new Date(2019, 6 + 1, 0).getDate() % 7) + firstDay) % 7);
+    createEmptyDays(spacesToFill, "next");
+  }
 
   return (
     <div
