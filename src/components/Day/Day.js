@@ -20,6 +20,7 @@ const Day = props => {
     []
   );
 
+  // Order cronologically the remainders to render inside Day component.
   remaindersArray.sort((a, b) => {
     return new Date(a.props.remainder.date + "T" + a.props.remainder.time) >
       new Date(b.props.remainder.date + "T" + b.props.remainder.time)

@@ -19,7 +19,7 @@ class RemainderForm extends Component {
 
   componentDidMount() {
     this.setState({ ...this.props.currentRemainder });
-    console.log(this.props);
+    console.log("MODAL MOUNTED: ", this.props);
   }
 
   handleSubmit = event => {
@@ -89,8 +89,8 @@ class RemainderForm extends Component {
       time: "08:00",
       color: "#FFFFFF",
       city: "Medellín",
-      country: "Colombia",
-      validate: false
+      country: "Colombia"
+      //validate: false
     });
 
   render() {
@@ -101,6 +101,7 @@ class RemainderForm extends Component {
         aria-labelledby="contained-modal-title-vcenter"
         centered
         onHide={this.handleClose}
+        className="remainderForm"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -178,7 +179,10 @@ class RemainderForm extends Component {
                 />
               </Form.Group>
             </Form.Row>
-            <div className="text-right">
+            <div className=" d-flex justify-content-between">
+              <Button variant="danger" disabled={!this.state.id}>
+                <i id="delete" class="icon far fa-trash-alt" />
+              </Button>
               <Button variant="success" type="submit">
                 Save
               </Button>
@@ -202,8 +206,8 @@ const mapStateToProps = state => ({
         time: "08:00",
         color: "#FFFFFF",
         city: "Medellín",
-        country: "Colombia",
-        validate: false
+        country: "Colombia"
+        //validate: false
       }
 });
 

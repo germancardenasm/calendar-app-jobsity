@@ -1,9 +1,17 @@
-import * as actType from "./actions";
-
 const initialState = {
   currentDay: new Date().getDate(),
   month: new Date().getMonth(),
-  remainders: [],
+  remainders: [
+    {
+      title: "test",
+      date: "2019-07-01",
+      time: "08:00",
+      color: "#FFFFFF",
+      city: "Medellín",
+      country: "Colombia",
+      id: 1561986000000
+    }
+  ],
   currentRemainder: [],
   showModal: false
 };
@@ -50,12 +58,8 @@ const reducer = (state = initialState, action) => {
       };
 
     case "DELETE_REMAINDER":
-      const TIME_STAMP = 0;
-      const newRemainderArray = state.remainder.filter(
-        (remainder, index) =>
-          remainder[TIME_STAMP] !== action.remainder[TIME_STAMP]
-      );
-      return { ...state, remainders: newRemainderArray };
+      return state;
+
     default:
       return state;
   }
