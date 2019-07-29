@@ -36,8 +36,8 @@ class RemainderForm extends Component {
           date: this.state.date,
           time: this.state.time,
           color: this.state.color,
-          city: this.state.City,
-          country: this.state.City
+          city: this.state.city,
+          country: this.state.country
         });
       } else {
         this.props.onSaveRemainder("SAVE_REMAINDER", {
@@ -45,11 +45,10 @@ class RemainderForm extends Component {
           date: this.state.date,
           time: this.state.time,
           color: this.state.color,
-          city: this.state.City,
-          country: this.state.City
+          city: this.state.city,
+          country: this.state.country
         });
       }
-
       //Reset State of the Form
       this.resetState();
     }
@@ -59,9 +58,7 @@ class RemainderForm extends Component {
   handleTitleChange = event => {
     if (event.target.value.length < 30)
       this.setState({ title: event.target.value });
-    //this.setState({ title: event.target.value });
   };
-
   //Handlers for controlled inputs
   handleDateChange = event => {
     this.setState({ date: event.target.value });
@@ -71,6 +68,12 @@ class RemainderForm extends Component {
   };
   handleColorChange = event => {
     this.setState({ color: event.target.value });
+  };
+  handleCityChange = event => {
+    this.setState({ city: event.target.value });
+  };
+  handleCountryChange = event => {
+    this.setState({ country: event.target.value });
   };
 
   //When  modal closes dispatches a HIDE_MODAL and Reset de UI state
@@ -113,8 +116,8 @@ class RemainderForm extends Component {
                   required
                   type="text"
                   placeholder="Enter Reminder"
-                  onChange={this.handleTitleChange}
                   value={this.state.title}
+                  onChange={this.handleTitleChange}
                 />
               </Form.Group>
             </Form.Row>
@@ -141,7 +144,12 @@ class RemainderForm extends Component {
             <Form.Row>
               <Form.Group as={Col} controlId="formCity">
                 <Form.Label>City</Form.Label>
-                <Form.Control required as="select">
+                <Form.Control
+                  required
+                  as="select"
+                  value={this.state.city}
+                  onChange={this.handleCityChange}
+                >
                   <option>Medellín</option>
                   <option>Bogotá</option>
                   <option>Cartagena</option>
@@ -149,7 +157,12 @@ class RemainderForm extends Component {
               </Form.Group>
               <Form.Group as={Col} controlId="formCountry">
                 <Form.Label>Country</Form.Label>
-                <Form.Control required as="select">
+                <Form.Control
+                  required
+                  as="select"
+                  value={this.state.country}
+                  onChange={this.handleCountryChange}
+                >
                   <option>Colombia</option>
                 </Form.Control>
               </Form.Group>
@@ -160,8 +173,8 @@ class RemainderForm extends Component {
                 <Form.Label>Color</Form.Label>
                 <Form.Control
                   type="Color"
-                  onChange={this.handleColorChange}
                   value={this.state.color}
+                  onChange={this.handleColorChange}
                 />
               </Form.Group>
             </Form.Row>
@@ -208,6 +221,7 @@ const mapDispatchToProps = dispatch => {
             new Date(remainderInfo.date + "T" + remainderInfo.time)
           );
           break;
+
         case "EDIT_REMAINDER":
           actionToSend.type = "EDIT_REMAINDER";
           break;

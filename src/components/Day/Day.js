@@ -20,6 +20,13 @@ const Day = props => {
     []
   );
 
+  remaindersArray.sort((a, b) => {
+    return new Date(a.props.remainder.date + "T" + a.props.remainder.time) >
+      new Date(b.props.remainder.date + "T" + b.props.remainder.time)
+      ? 1
+      : -1;
+  });
+
   return (
     <div className="day" id={props.date}>
       {props.date}
