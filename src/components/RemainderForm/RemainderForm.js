@@ -85,10 +85,10 @@ class RemainderForm extends Component {
   };
   //Handlers for controlled inputs
   handleDateChange = event => {
-    this.setState({ date: event.target.value });
+    this.setState({ date: event.target.value }, this.fecthWeather);
   };
   handleTimeChange = event => {
-    this.setState({ time: event.target.value });
+    this.setState({ time: event.target.value }, this.fecthWeather);
   };
   handleColorChange = event => {
     this.setState({ color: event.target.value });
