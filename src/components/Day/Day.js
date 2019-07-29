@@ -12,11 +12,7 @@ const Day = props => {
         remainderDate.getDate() === props.date
       ) {
         accumulator.push(
-          <Remainder
-            title={currentremainder.title}
-            key={currentremainder.id}
-            id={currentremainder.id}
-          />
+          <Remainder remainder={currentremainder} key={currentremainder.id} />
         );
       }
       return accumulator;
