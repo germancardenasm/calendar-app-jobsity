@@ -1,11 +1,10 @@
 import * as actType from "./actions";
 
-console.log("actType", actType);
-
 const initialState = {
   currentDay: new Date().getDate(),
   month: new Date().getMonth(),
   remainders: [],
+  currentRemainder: [],
   showModal: false
 };
 
@@ -18,8 +17,15 @@ const comparator = (a, b) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SHOW_MODAL":
-      return { ...state, showModal: true };
+    case "SHOW_REMAINDER":
+      return {
+        ...state,
+        showModal: true,
+        currentRemainder:
+          state.remainders.find(remaninder => {
+            return parseInt(action.target.id) === remaninder[0];
+          }) || []
+      };
 
     case "HIDE_MODAL":
       return { ...state, showModal: false };

@@ -45,12 +45,16 @@ class RemainderForm extends Component {
     if (event.target.value.length < 30)
       this.setState({ title: event.target.value });
   };
+
+  //Handlers for controlled inputs
   handleDateChange = event => {
     this.setState({ date: event.target.value });
   };
   handleTimeChange = event => {
     this.setState({ time: event.target.value });
   };
+
+  //When  modal closes dispatches a HIDE_MODAL and Reset de UI state
   handleClose = () => {
     this.props.onCloseModal();
     this.resetState();
@@ -70,7 +74,7 @@ class RemainderForm extends Component {
   render() {
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -151,6 +155,12 @@ class RemainderForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  currentDay: state.currentDay,
+  month: state.month,
+  currentRemainder: state.currentRemainder[1]
+});
+
 const mapDispatchToProps = dispatch => {
   return {
     onSaveRemainder: remainderInfo =>
@@ -173,6 +183,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(RemainderForm);

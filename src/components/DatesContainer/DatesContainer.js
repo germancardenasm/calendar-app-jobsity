@@ -41,8 +41,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onClickCalendar: event =>
       dispatch({
-        type: "SHOW_MODAL",
-        target: event.target.id
+        type: "SHOW_REMAINDER",
+        target: event.target
       })
   };
 };
