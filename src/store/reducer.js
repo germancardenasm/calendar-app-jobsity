@@ -9,7 +9,9 @@ const initialState = {
       color: "#FFFFFF",
       city: "Medellín",
       country: "Colombia",
-      id: 1561986000000
+      id: 1561986000000,
+      weather: "",
+      weatherIcon: ""
     }
   ],
   currentRemainder: [],

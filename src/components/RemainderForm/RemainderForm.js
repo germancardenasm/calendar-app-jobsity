@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
+import Image from "react-bootstrap/Image";
 import { connect } from "react-redux";
 import "./RemainderForm.css";
 
@@ -14,13 +15,37 @@ class RemainderForm extends Component {
     color: "#FFFFFF",
     city: "Medellín",
     country: "Colombia",
-    validate: false
+    weather: "",
+    weatherIcon: ""
   };
 
   componentDidMount() {
-    this.setState({ ...this.props.currentRemainder });
-    console.log("MODAL MOUNTED: ", this.props);
+    this.setState({ ...this.props.currentRemainder }, this.fecthWeather);
   }
+
+  fecthWeather = () => {
+    fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?q=${
+        this.state.city
+      },Col&appid=6deea3333818f74a60c830d5144a9514`
+    )
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        return this.updateWeather(json);
+      });
+  };
+
+  updateWeather = response => {
+    const img = `http://openweathermap.org/img/wn/${
+      response.list[0].weather[0].icon
+    }@2x.png`;
+    this.setState({
+      weather: response.list[0].weather[0].description,
+      weatherIcon: img
+    });
+  };
 
   handleSubmit = event => {
     const form = event.currentTarget;
@@ -28,7 +53,6 @@ class RemainderForm extends Component {
     if (form.checkValidity() === false) {
       event.stopPropagation();
     } else {
-      this.setState({ validate: true });
       if (this.state.id) {
         this.props.onSaveRemainder("EDIT_REMAINDER", {
           id: this.state.id,
@@ -70,7 +94,7 @@ class RemainderForm extends Component {
     this.setState({ color: event.target.value });
   };
   handleCityChange = event => {
-    this.setState({ city: event.target.value });
+    this.setState({ city: event.target.value }, this.fecthWeather);
   };
   handleCountryChange = event => {
     this.setState({ country: event.target.value });
@@ -89,8 +113,9 @@ class RemainderForm extends Component {
       time: "08:00",
       color: "#FFFFFF",
       city: "Medellín",
-      country: "Colombia"
-      //validate: false
+      country: "Colombia",
+      weather: "",
+      weatherIcon: ""
     });
 
   render() {
@@ -120,6 +145,12 @@ class RemainderForm extends Component {
                   value={this.state.title}
                   onChange={this.handleTitleChange}
                 />
+              </Form.Group>
+              <Form.Group as={Col} controlId="formTitle">
+                <div className="weatherIcon d-flex align-items-center justify-content-end">
+                  <h6>{this.state.weather}</h6>
+                  <Image src={this.state.weatherIcon} fluid />
+                </div>
               </Form.Group>
             </Form.Row>
             <Form.Row>
@@ -181,7 +212,7 @@ class RemainderForm extends Component {
             </Form.Row>
             <div className=" d-flex justify-content-between">
               <Button variant="danger" disabled={!this.state.id}>
-                <i id="delete" class="icon far fa-trash-alt" />
+                <i id="delete" className="icon far fa-trash-alt" />
               </Button>
               <Button variant="success" type="submit">
                 Save
@@ -207,7 +238,6 @@ const mapStateToProps = state => ({
         color: "#FFFFFF",
         city: "Medellín",
         country: "Colombia"
-        //validate: false
       }
 });
 
