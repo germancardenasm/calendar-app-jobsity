@@ -1,6 +1,5 @@
 export function reminderAction(action, remainderInfo) {
   const actionToSend = {};
-  console.log(remainderInfo);
   actionToSend.remainder = { ...remainderInfo };
   switch (action) {
     default:

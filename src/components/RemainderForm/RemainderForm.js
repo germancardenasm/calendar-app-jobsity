@@ -30,9 +30,8 @@ class RemainderForm extends Component {
   };
 
   showWeather = response => {
-    //Openweather free tier does not allow to fetch weather of any date.
-    //Because of that for this challenge the app uses a random number
-    //to get weather from the list return to show the fucntionality
+    //Openweather free tier does not allow to fetch weather of the following 5 days.
+    //For this challenge the app uses a random number to get weather from the list return to show the fucntionality
     const random = Math.floor(Math.random() * 40);
     const img = `http://openweathermap.org/img/wn/${
       response.list[random].weather[0].icon
@@ -47,7 +46,6 @@ class RemainderForm extends Component {
     event.preventDefault();
 
     if (this.isDateReserved()) {
-      console.log("date reserved");
       event.stopPropagation();
       this.setState({ dataReserved: true });
       return;
@@ -76,11 +74,13 @@ class RemainderForm extends Component {
     //reserved ? this.props.onDateReserved() : this.props.onDateAvailable();
     return reserved;
   };
+
   //Limit length of reminder title to 30 charaters
   handleTitleChange = event => {
     if (event.target.value.length < 30)
       this.setState({ title: event.target.value });
   };
+
   //Handlers for controlled inputs
   handleDateChange = event => {
     this.setState(
