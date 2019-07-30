@@ -42,9 +42,14 @@ If the browser does not open automatically, please open manually at this URL [ht
 
 ### Bonus Features Achieved
 
-● Expand the calendar to support more than the current month.
-● Properly handle overflow when multiple reminders appear on the same date.
-● Functionality to delete one or ALL the reminders for a specific day
+- Functionality to delete one reminder.
+
+### Bonus Features NOT Achieved
+
+Due to restriction in time, the following Bonus features were not implemented.
+
+- Expand the calendar to support more than the current month.
+- Properly handle overflow when multiple reminders appear on the same date.
 
 ## Test App
 
