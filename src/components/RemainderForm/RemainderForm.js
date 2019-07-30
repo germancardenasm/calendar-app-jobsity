@@ -207,7 +207,11 @@ class RemainderForm extends Component {
               </Form.Group>
             </Form.Row>
             <div className=" d-flex justify-content-between">
-              <Button variant="danger" disabled={!this.state.id}>
+              <Button
+                onClick={this.props.onDeleteReminder}
+                variant="danger"
+                disabled={!this.state.id}
+              >
                 <i id="delete" className="icon far fa-trash-alt" />
               </Button>
               <Button variant="success" type="submit">
@@ -238,7 +242,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionToSend);
     },
 
-    onCloseModal: () => dispatch({ type: "HIDE_MODAL" })
+    onCloseModal: () => dispatch({ type: "HIDE_MODAL" }),
+
+    onDeleteReminder: () => dispatch({ type: "DELETE_REMINDER" })
   };
 };
 

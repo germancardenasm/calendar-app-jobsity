@@ -46,8 +46,17 @@ const reducer = (state = initialState, action) => {
         remainders: remindersEdited
       };
 
-    case "DELETE_REMAINDER":
-      return state;
+    case "DELETE_REMINDER":
+      console.log("DELETE");
+      const remindersAfterDelete = state.remainders.filter(
+        (item, index) => item.id !== state.currentRemainder.id
+      );
+
+      return {
+        ...state,
+        showModal: false,
+        remainders: remindersAfterDelete
+      };
 
     default:
       return state;
