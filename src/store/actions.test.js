@@ -10,8 +10,7 @@ it("renders without crashing", () => {
     },
     type: "SAVE_REMAINDER"
   };
-  console.log(changedReminder);
-  expect(reminderAction("add", changedReminder)).toEqual(
-    expect.objectContaining(expectedReminder)
+  expect(reminderAction("add", changedReminder)).toMatchObject(
+    expectedReminder
   );
 });
