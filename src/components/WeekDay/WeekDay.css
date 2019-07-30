@@ -3,7 +3,9 @@
    width: 14.2857%;
    border-left: 1px solid black;
    border-bottom: 1px solid black;
-   color: var(--thirdColor);
+   color: white;
    text-align: center;
    padding: 0.5em;
+   background-color: #034078;
+
 }

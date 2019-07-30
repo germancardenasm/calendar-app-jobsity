@@ -8,6 +8,7 @@ const Remainder = props => {
       id={props.remainder.id}
       style={{ backgroundColor: props.remainder.color }}
     >
+      {props.remainder.time + "  "}
       {props.remainder.title}
     </div>
   );

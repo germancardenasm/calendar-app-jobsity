@@ -5,9 +5,13 @@
    width: 100%;
    height: 20px;
    line-height: 20px;
-   padding: 0 0.5rem;
+   padding: 0 0.25rem;
    overflow: hidden;
    cursor: pointer;
    background-color: red;
    text-overflow: ellipsis;
+}
+
+.remainder .bold {
+   font-weight: bold;
 }

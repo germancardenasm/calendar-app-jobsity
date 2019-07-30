@@ -3,7 +3,7 @@ import WeekDay from "../WeekDay/WeekDay";
 import "./WeekContainer.css";
 
 const WeekContainer = () => {
-  const daysNames = ["S", "M", "T", "W", "T", "F", "S"];
+  const daysNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   const week = daysNames.map((day, index) => {
     const a = <WeekDay day={day} key={index} />;

@@ -29,8 +29,8 @@ const Day = props => {
   });
 
   return (
-    <div className="day" id={props.date}>
-      {props.date}
+    <div className={props.date ? "day" : "day empty"} id={props.date}>
+      {" " + props.date}
       {remaindersArray}
     </div>
   );
